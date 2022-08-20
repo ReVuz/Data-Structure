@@ -1,109 +1,88 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-class arrayy {
+class IADEFAA {
 public:
-	void Traverse(int data[], int lb, int ub) {
-		int k;
-		k = lb;
-		while (k <= ub) {
-			cout << data[k]<<endl;
-			k = k + 1;
+	void traverse(int data[], int size) {
+		cout << "\nArray Traversal : ";
+		for (int i = 0; i < size; i++) {
+			cout << data[i]<<" ";
 		}
 	}
-	void insert(int data[], int n, int k, int item) {
-		int j = n;
-		j = n-1;
-		int* arr = new int [n];
-		for(int i = 0; i < n;i++){
-		    arr[i]=data[i];
-		    }
-		while (j >= k) {
-			arr[j+1] = arr[j];
-			j = j - 1;
-
+	int* insert(int data[], int *size,int item,int pos) {
+		*size += 1;
+		cout << "UPDATED ARRAY SIZE : " << *size<< endl;
+		for (int i = *size; i >= pos; i--) {				//n-pos
+			data[i] = data[i - 1];
 		}
-			arr[k] = item;
-			n = n + 1;
-			
-			data = new int[n+1];
-			/* for(int i = 0;i<n+1;i++){
-			    data[i]=arr[i];
-			    }*/
-		cout << "Updated Array : ";
-		for (int i = 0; i < n+1; i++) {
-			cout << arr[i] << ",";
+		data[pos - 1] =  item;
+		cout << "Updated array : \n" << endl;
+		for (int i = 0; i < *size; i++) {
+			cout << data[i] <<" ";
 		}
+		return data;
 	}
-	void del(int data[], int n, int k, int item) {
-		int i,found = 0;
-		for (i = 0; i < k; i++)
-		{
-			if (data[i] == item)
-			{
-				for (int j = i; j < (k - 1); j++)
-					data[j] = data[j + 1];
-				k = k - 1;
-				found++;
-				i--;
+	int* del(int data[], int *size, int item) {
+		int temp;
+		for (int i = 0; i < *size; i++) {
+			if (data[i] == item) {
+				temp = data[i+1];
+				data[i + 1] = data[i];
+				data[i] = temp;
 			}
 		}
-		if (found == 0)
-			cout << "\nElement doesn't found in the Array!";
-		else
-			cout << "\nElement Deleted Successfully!";
-		cout << endl;
-		cout << "\nUpdated Array : ";
-		for (int j = 0; j < n; j++) {
-			cout << data[j];
+		*size -= 1;
+		cout << "UPDATED ARRAY SIZE : " << *size << endl;
+		cout << "Updated array : ";
+		for (int i = 0; i < *size; i++) {
+			cout << data[i] << " ";
 		}
+		return data;
 	}
 };
 int main() {
-	arrayy obj;
-	cout << "How many elements do you want to add : ";
-	int n,ans;
-	int item,pos;
-	cin >> n;
-	int* data = new int[n];
-	cout << "Enter the elements : ";
-	for (int i = 0; i < n; i++) {
+	IADEFAA op;
+	cout << "Enter the size of an array : ";
+	int size, ans = 0;
+	int option;
+	cin >> size;
+	cout << "Enter the array elements : ";
+	int* data = new int[size];
+	for (int i = 0; i < size; i++) {
 		cin >> data[i];
 	}
-	do
-	{
-		cout << "\nARRAY OPERATIONS \n1. Insert an element"
-			"\n2. Delete an element\n3. Traverse array\n0. Exit : ";
-		int num;
-		cin >> num;
-		switch (num)
+	do {
+		cout << "\nArray Operations : "
+			"\n1. Traverse an array "
+			"\n2. Insert an element "
+			"\n3. Delete an element "
+			"\nChoose any option from above : ";
+		cin >> option;
+		switch (option)
 		{
-		case 1 :
-			cout << "Enter the element to insert : ";
+		case 1:
+			op.traverse(data, size);
+			break;
+		case 2:
+			cout << "Enter the element to be inserted : ";
+			int item;
 			cin >> item;
-			cout<<"Enter position of element to be inserted : ";
-			cin>>pos; 
-			obj.insert(data, n, pos, item);
+			cout << "Enter the position of element to be inserted : ";
+			int pos;
+			cin >> pos;
+			op.insert(data, &size, item, pos);
 			break;
-		case 2 :
-			cout << "Enter the element to delete : ";
+		case 3 :
+			cout << "Enter the element to be deleted : ";
 			cin >> item;
-					obj.del(data, n, n, item);
-			break;
-		case 3:
-			cout << "Enter the lower and upper bound : ";
-			int lb, ub;
-			cin >> lb >> ub;
-			obj.Traverse(data, lb, ub);
-			break;
-		case 0 :
-			cout << "OK" << endl;
+			op.del(data ,&size ,item);
 			break;
 
 		default:
 			break;
 		}
+
 		cout << "\nDo you want to continue ?(1/0) : ";
 		cin >> ans;
 	} while (ans);
-	cout << "Thank you " << endl;
+
 }
