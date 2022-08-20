@@ -15,10 +15,10 @@ public:
 	void traverse() {
 		cout << "\nTRAVERSING AN ARRAY : \n";
 		for (int i = 0; i < size; i++) {
-			cout << data[i] <<" ";
+			cout << data[i] << " ";
 		}
 	}
-	int* insert(int item, int pos) {
+	void insert(int item, int pos) {
 		size += 1;
 		cout << "\nUPDATED ARRAY SIZE : " << size << endl;
 		for (int i = size; i >= pos; i--) {				//n-pos
@@ -29,9 +29,8 @@ public:
 		for (int i = 0; i < size; i++) {
 			cout << data[i] << " ";
 		}
-		return data;
 	}
-	int* del(int item) {
+	void del(int item) {
 		int temp;
 		for (int i = 0; i < size; i++) {
 			if (data[i] == item) {
@@ -46,7 +45,6 @@ public:
 		for (int i = 0; i < size; i++) {
 			cout << data[i] << " ";
 		}
-		return data;
 	}
 };
 int main() {
@@ -80,7 +78,7 @@ int main() {
 			cin >> item;
 			op.del(item);
 			break;
-		case 4 :
+		case 4:
 			break;
 		default:
 			break;
