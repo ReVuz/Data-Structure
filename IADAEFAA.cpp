@@ -20,7 +20,7 @@ public:
 	}
 	void insert(int item, int pos) {
 		size += 1;
-		cout << "\nUPDATED ARRAY SIZE : " << size << endl;
+		cout << "\nUPDATED ARRAY size : " << size << endl;
 		for (int i = size; i >= pos; i--) {				//n-pos
 			data[i] = data[i - 1];
 		}
@@ -32,18 +32,25 @@ public:
 	}
 	void del(int item) {
 		int temp;
+		int flag = 0;
 		for (int i = 0; i < size; i++) {
 			if (data[i] == item) {
 				temp = data[i + 1];
 				data[i + 1] = data[i];
 				data[i] = temp;
+				flag = 1;
 			}
 		}
-		size -= 1;
-		cout << "\nUPDATED ARRAY SIZE : " << size << endl;
-		cout << "\nUPDATED ARRAY : ";
-		for (int i = 0; i < size; i++) {
-			cout << data[i] << " ";
+		if(flag == 0){
+		    cout<<"\nElement not found!\n";
+		}
+		else{
+    		size -= 1;
+    		cout << "\nUPDATED ARRAY size : " << size << endl;
+    		cout << "\nUPDATED ARRAY : ";
+    		for (int i = 0; i < size; i++) {
+    			cout << data[i] << " ";
+    		}
 		}
 	}
 };
