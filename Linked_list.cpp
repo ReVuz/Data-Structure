@@ -70,8 +70,65 @@ void del(node** head, int item) {
 		cout << "Item not found" << endl;
 	}
 }
+//For sorting the linked list using merge sort algorithm
+//Funtion to sort the sublists
+node* Sorted(node* A, node* B) {
+	node* sorted_list = NULL; // to store the sorted list
+	if (A == NULL) {
+		return B;		//sorted_list = B
+	}
+	else if (B == NULL) {
+		return A;		//sorted_list = A
+	}
+
+	if (A->data > B->data) {
+		sorted_list = B;
+		sorted_list->next = Sorted(A, B->next);
+	}
+	else {
+		sorted_list = A;
+		sorted_list->next = Sorted(A->next, B);
+	}
+	return sorted_list;
+}
+// Function to split the List to sub lists
+//Using floyd's turtoise algorithm
+void mergesplit(node* start, node** A, node** B) {
+	node* fast;
+	node* slow;
+	fast = start->next;
+	slow = start;
+	while (fast != NULL) {
+		fast = fast->next;
+		if (fast != NULL) {
+			slow = slow->next;
+			fast = fast->next;
+		}
+	}
+	//After the loop ends, slow will reach position before the mid-point
+	*A = start;
+	*B = slow->next;
+	slow->next = NULL;
+
+}
+//Function to split the list and to sort the list using recursion
+void MergeSort(node** head) {
+	node* start = *head;
+	node* A;
+	node* B;
+	if (start == NULL || start->next == NULL) {
+		return;
+	}
+	//split the list to sub lists
+	mergesplit(start,&A,&B);
+	//using recusion to sort the sub lists
+	MergeSort(&A);
+	MergeSort(&B);
+	//Storing the sorted list to head pointer
+	*head = Sorted(A, B);
+}
 void display(node *node) {
-	cout << "List : ";
+	cout << "\nList : ";
 	while (node != NULL) {
 		cout << node->data<<" ";
 		node = node->next;
@@ -81,8 +138,8 @@ int main() {
 	node* head = NULL;
 	int option, ans = 1;
 	do {
-		cout << "Linked list operations : \n1. Insert an element \n2. Search for an element "
-			"\n3. Delete an Element\n0. Exit "
+		cout << "Linked list operations : \n1. Insert an element to a sorted list \n2. Search for an element "
+			"\n3. Delete an Element \n4. Merge two sorted list to a single sorted list\n0. Exit "
 			"\nChoose your option : ";
 		cin >> option;
 		switch (option)
@@ -92,6 +149,7 @@ int main() {
 			cout << "Enter the value to insert : ";
 			cin >> value;
 			insert(&head, value);
+			MergeSort(&head);
 			break;
 		case 2:
 			cout << "Enter the element to search : ";
@@ -103,6 +161,18 @@ int main() {
 			cout << "Enter the element to delete : ";
 			cin >> item;
 			del(&head, item);
+		case 4:
+			for (int i = 0; i < 2; i++) {
+				cout << "Enter number of elementd for sorted list " << i << " : ";
+				int num;
+				cin >> num;
+				cout << "Enter the elements : ";
+				for (int j = 0; j < num; j++) {
+					cin >> value;
+					insert(&head, value);
+					MergeSort(&head);
+				}
+			}
 		default:
 			break;
 		}
