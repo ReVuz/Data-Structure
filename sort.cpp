@@ -189,18 +189,6 @@ void quickSort(int arr[], int start, int end)
     quickSort(arr, p + 1, end);
 }
  
-int main()
-{
-
-
-
- 
-    quickSort(arr, 0, n - 1);
- 
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
- 
 
 
 	// Function to print an array
@@ -255,7 +243,13 @@ int main() {
 			cout << "\nSorted array : ";
 			s.printArray(arr, num);
 			break;
-				
+                case 5 : 
+                        cout <<"\nQuick Sort : "<<endl;
+                        s.quickSort(arr,0,num-1);
+                        cout << "\nSorted array : ";
+			s.printArray(arr, num);
+			break;
+
 
 		case 0 :
 			cout << "OK" << endl;
