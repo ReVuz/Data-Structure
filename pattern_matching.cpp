@@ -1,5 +1,5 @@
 #include<iostream>
-#include<cstring>>
+#include<cstring>
 using namespace std;
 void substring(int pos, int length, string text) {
 
@@ -35,7 +35,7 @@ int pattern( string String, int str_length, char pattern[], int pat_length){
 		}
 		return -1;
 	}
-string insert(string S, int E_p, string SUB)
+string insert(string S, int pos, string SUB)
 {
 	int n = S.length();
 	SUB = SUB + " ";
@@ -51,15 +51,14 @@ string insert(string S, int E_p, string SUB)
 	char* temp = new char[total];
 	strcpy(temp, tep.c_str());
 
-	for (int i = E_p, j = 0; i < ns + E_p; i++, j++)
+	for (int i = pos, j = 0; i < ns + pos; i++, j++)
 	{
 		str[i] = Sub[j];
 	}
-	for (int i = E_p + ns, j = E_p; i < n + ns + 1; i++, j++)
+	for (int i = pos + ns, j = pos; i < n + ns + 1; i++, j++)
 	{
 		str[i] = temp[j];
 	}
-	cout << "New String : " << str << "\n";
 	return(string(str));
 }
 string del(string S, int pos, int len)
@@ -83,17 +82,19 @@ string del(string S, int pos, int len)
 
 int main() {
 	cout << "Enter a word : ";
+	int ans;
 	string str;
 	cin >> str;
 	string S,Str,str2;
-	cin >> str;
-	cout << "String Operations : \n1. pattern matching \n2. Substring Extraction \n3. Insertion of a String \n4.Deletion of a string \n5. String Replacement \n0. Exit"
+	do{
+	cout << "String Operations : \n1. pattern matching \n2. Substring Extraction \n3. Insertion of a String \n4. Deletion of a string \n5. String Replacement \n0. Exit"
 		"\nChoose any option : ";
 	int option;
+	int pos;int len;
 	cin >> option;
 	switch (option)
 	{
-	case 1:
+	case 1 : {
 		cout << "Enter the pattern : ";
 		char ptn[40];
 		cin >> ptn;
@@ -105,43 +106,50 @@ int main() {
 			cout << "Pattern found at position : " << match << endl;
 		}
 		break;
-	case 2:
+		}
+	case 2 : {
 		cout << "Enter the position from which the substring need to be extracted : ";
 		int sub_len;
 		cin >> sub_len;
 		substring(sub_len, str.length(), str);
 		break;
-	case 3 :
+		}
+	case 3 : {
 		cout << "Enter a string : ";
 		cin >> Str;
 		cout << "Enter the position to insert : ";
-		int pos;
 		cin >> pos;
-		S = insert(str, pos, Str);
-		cout << "New String : " << S << endl;
+		str = insert(str, pos, Str);
+		cout << "New String : " << str;
 		break;
-	case 4:
+		}
+	case 4 : {
 		cout << "Enter the position of string to delete : ";
 		cin >> pos;
 		cout << "Enter the length to delete : ";
-		int len;
 		cin >> len;
-		S = del(str, pos, len);
-		cout << "Updated String : " << S << endl;
+		str = del(str, pos, len);
+		cout << "Updated String : " << str << endl;
 		break;
-	case 5: 
+		}
+	case 5 : {
 		cout << "Enter the position to replace : ";
 		cin >> pos;
 		cout << "Enter the length to replace : ";
 		cin >> len;
 		cout << "Enter the string to replace : ";
 		cin >> str2;
-		S = del(str, pos, len);
+		str = del(str, pos, len);
 		S = insert(str, pos, str2);
 		cout << "Updated String : " << S << endl;
 		break;
+		}
 	default:
 		break;
 	}
+	cout<<"\nDo you want to continue?(1/0) : ";
+	cin>>ans;
+	}while(ans);
+	cout<<"Thank you"<<endl;
 
 }
