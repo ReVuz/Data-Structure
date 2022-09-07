@@ -143,7 +143,7 @@ int findHeight(node* root) {
 	return (max(leftHeight, rightHeight)+ 1);
 }
 
-    void print2D(node* r, int space) {
+   /* void print2D(node* r, int space) {
         if (r == NULL) // Base case  1
             return;
         space += 2; // Increase distance between levels   2
@@ -153,7 +153,7 @@ int findHeight(node* root) {
             cout << " "; // 5.1  
         cout << r->data << "\n"; // 6
         print2D(r->left, space); // Process left child  7
-    }
+    }*/
 
 int main() {
 	node* root = NULL;	//Empty Tree Created
@@ -162,9 +162,9 @@ int main() {
 			cout << "\nBinary Tree Operations "
 				"\nChoose any option from Below" << endl;
 			cout << "1. Insert Node\n2. Search Node "
-				"\n3.Delete Node\n4.Find Minimum and Maximum value"
-				"\n5.Find Height of Tree"
-				"\n6. Tree Traversal\n0.Exit " << endl;
+				"\n3.Delete Node"
+				"\n4.Find Height of Tree"
+				"\n5. Tree Traversal\n0.Exit " << endl;
 			cin >> num;
 			switch (num)
 			{
@@ -194,14 +194,10 @@ int main() {
 				}
 				
 			case 4:
-				cout << "Minimum value : " << findMin(root) << endl;
-				cout << "Maximum value : " << findMax(root) << endl;
-				break;
-			case 5 :
 				cout << "Height of Tree : " << findHeight(root) << endl;
 				break;
-			case 6 :
-				print2D(root, 2);
+			case 5 :
+				//print2D(root, 2);
 				cout << "\n1. Inorder Traversal : ";
 				Inorder(root);
 				cout << "\n2. Preorder Traversal : ";
@@ -209,6 +205,7 @@ int main() {
 				cout << "\n3. Postorder Traversal : ";
 				Postorder(root);
 				break;
+				
 			default:
 				break;
 			}
