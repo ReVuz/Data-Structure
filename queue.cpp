@@ -35,18 +35,18 @@ public:
         }
         else
             cout << "Queue : ";
-            for (int i = front; i < rear; i++) {
-                cout << arr[rear-i] << "  ";
+            for (int i = rear; i > front; i--) {
+                cout << arr[i] << "  ";
             }
     }
 };
 int main() {
     Queue_array queue;
-    int value, option, ans = 0,num,c=2;
+    int value, option, ans = 0, num, c = 2;
 
     do {
         cout << "QUEUE USING ARRAY\t";
-        cout << "\n1. Enqueue \n2. Dequeue \n0. Exit"<<endl;
+        cout << "\n1. Enqueue \n2. Dequeue \n0. Exit" << endl;
         cout << "Enter your choice : ";
 
         cin >> option;
@@ -75,7 +75,7 @@ int main() {
                 queue.dequeue();
             }
             break;
-        case 0 :
+        case 0:
             break;
         default:
             cout << "\nInvalid Option!" << endl;
