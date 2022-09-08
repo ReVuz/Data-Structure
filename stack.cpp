@@ -1,111 +1,78 @@
 #include <iostream>
 using namespace std;
-
-
+int n = 20;
 class Stack {
-	int top, max;
-	int array[10];
+	int arr[20] = {0};
+	int top = 0;
 public:
-	Stack() {
-		max = 10;
-		top = -1;
+	void push(int val) {
+		if (top > n) {
+			cout << "Stack Overflow" << endl;
+		}
+		else {
+			top++;
+			arr[top] = val;
+		}
 	}
-	void push(int val);
-	int pop();
-	void print(int num);
+	void pop() {
+		if (top == 0) {
+			cout << "Stack Underflow" << endl;
+		}
+		else {
+			cout << "Element popped : " << arr[top] << endl;
+			top--;
+		}
+	}
+	void print() {
+		if (top == 0) {
+			cout << "Stack is Empty" << endl;
+		}
+		else {
+			cout << "Stack : ";
+			for (int i = top; i > 0; i--) {
+				cout << arr[i] << " ";
+			}
+		}
+	}
 };
-
-void Stack::push(int val) {
-	if (top >= max) {
-		cout << "Stack Overflow" << endl;
-		return;
-	}
-	top++;
-	array[top] = val;
-}
-
-int Stack::pop() {
-	if (top < 0) {
-		cout << "Stack Underflow" << endl;
-		return 0;
-	}
-	int pop = array[top];
-	top--;
-	cout << "Top element popped" << endl;
-	return pop;
-}
-void Stack::print(int num) {
-	for (int i = 0; i < num; i++) {
-		cout << array[i] << " ";
-	}
-}
-class Node {
+class node {
 public:
 	int data;
-	Node* link;
-public:
-	Node() {
-		this->link = NULL;
-		this->data = 0;
-	}
-	Node(int val) {
-		this->data = val;
-		this->link = NULL;
-	}
-	int getValue() {
-		return data;
-	}
-	void setValue(int val) {
-		this->data = val;
-		this->link = NULL;
-	}
-	friend class Stack;
+	node* next;
 };
-
-class Linked_Stack {
-	Node* top;
-public:
-	Linked_Stack() {
-		top = NULL;
-	}
-	void push(int val);
-	void pop();
-	void print();
-};
-
-void Linked_Stack::push(int val) {
-	Node* newNode = new Node(val);
-	if (top == NULL) {
-		top = newNode;
-		return;
-	}
-	Node* temp = top;
-	top = newNode;
-	top->link = temp;
-
+node* top = NULL;
+void push(int val) {
+	node* ptr = new node();
+	ptr->data = val;
+	ptr->next = top;
+	top = ptr;
 }
-
-void Linked_Stack::pop() {
+void pop() {
 	if (top == NULL) {
 		cout << "Stack Underflow" << endl;
 	}
-	Node* temp = NULL;
-	temp = top;
-	top = top->link;
-	delete temp;
+	else {
+		cout << "Element popped : " << top->data << endl;
+		node* ptr = top;
+		top = top->next;
+		delete ptr;
+	}
 }
-
-void Linked_Stack::print() {
-	Node* temp = top;
-	cout << "Stack : " << endl;
-	while (temp != NULL) {
-		cout << temp->data << " ";
-		temp = temp->link;
+void print() {
+	if (top == NULL) {
+		cout << "Stack is Empty" << endl;
+	}
+	else {
+		node* ptr = top;
+		cout << "Stack : ";
+		while (ptr != NULL) {
+			cout << ptr->data << " ";
+			ptr = ptr->next;
+		}
 	}
 }
 int main() {
 	Stack S;
-	Linked_Stack L;
 	int ans = 0;
 	do {
 		cout << "Stack Operations Using : \n1. Array \n2. Linked List \nChoose your option : ";
@@ -125,10 +92,11 @@ int main() {
 					cin >> item;
 					S.push(item);
 				}
-				S.print(num);
+				S.print();
 			}
 			else {
 				S.pop();
+				S.print();
 			}
 		}
 		else if (option == 2) {
@@ -139,13 +107,13 @@ int main() {
 				cout << "Enter the element to push : ";
 				for (int i = 0; i < num; i++) {
 					cin >> item;
-					L.push(item);
+					push(item);
 				}
-				L.print();
+				print();
 			}
 			else {
-				L.pop();
-				L.print();
+				pop();
+				print();
 			}
 		}
 		cout << "\nDo you want to continue?(1/0) : ";
