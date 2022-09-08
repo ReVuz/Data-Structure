@@ -1,112 +1,92 @@
 #include<iostream>
 using namespace std;
 int n = 10;
-class Queue {
-private:
-    int front;
-    int rear;
-    int arr[20];
-
+class Queue_array {
+    int front = 0;
+    int rear = 0;
+    int arr[10] = { 0 };
 public:
-    Queue() {
-        front = -1;
-        rear = -1;
-        for (int i = 0; i < n; i++) {
-            arr[i] = 0;
-        }
+    int check() {
+        int n = 0;
+        if (rear == n) { n = 1; }
+        else if (front == rear) { n = 2;}
+        return n;  
     }
     void enqueue(int val) {
-        if (rear == n - 1)
-        {
-            cout << "Queue Overflow" << endl;
-            return;
-        }
-        else if (front == -1 && rear == -1) {
-            rear = 0;
-            front = 0;
-            arr[rear] = val;
-        }
-        else {
-            rear++;
-            arr[rear] = val;
-        }
-
+        rear++;
+        arr[rear] = val;
     }
 
     void dequeue() {
-        int val;
-        if (front == -1 && rear == -1)
-        {
-            cout << "Queue Underflow" << endl;
-
+        int val=arr[1];
+        for (int i = 0; i < rear; i++) {
+                arr[i] = arr[i + 1];  
         }
-        else if (rear == front) {
-            val = arr[rear];
-            rear = -1;
-            front = -1;
-            cout << "Element deleted : " << val << endl;
-            front++;
-        }
-        else {
-            cout << "front value: " << front << endl;
-            val = arr[front];
-            arr[front] = 0;
-            cout << "Element deleted : " << val << endl;
-
-            front++;
-        }
+        rear--;
+        cout << "Element deleted : " << val << endl;
     }
 
 
     void display() {
-        if (front == -1)
+        if (front == rear)
         {
             cout << "Queue is empty!!" << endl;
 
         }
         else
-            for (int i = 0; i < n; i++) {
-                cout << arr[i] << "  ";
+            cout << "Queue : ";
+            for (int i = front; i < rear; i++) {
+                cout << arr[rear-i] << "  ";
             }
-        cout << "\nFront:" << front << endl;
-        cout << "Rear:" << rear << endl;
-        cout << endl;
     }
-
 };
-
 int main() {
-    Queue q1;
-    int value, option, ans;
+    Queue_array queue;
+    int value, option, ans = 0,num,c=2;
 
     do {
-        cout << "\tQUEUE USING ARRAY\t";
-        cout << "\n1. Enqueue" << endl;
-        cout << "2. Dequeue" << endl;
-        cout << "3. Display" << endl;
+        cout << "QUEUE USING ARRAY\t";
+        cout << "\n1. Enqueue \n2. Dequeue \n0. Exit"<<endl;
         cout << "Enter your choice : ";
 
         cin >> option;
+
         switch (option) {
         case 1:
-            cout << "Enter an item to add in the Queue : " << endl;
-            cin >> value;
-            q1.enqueue(value);
+            if (c == 1) {
+                cout << "Queue Overflow" << endl;
+            }
+            else {
+                cout << "Enter number of elements of enqueue : ";
+                cin >> num;
+                cout << "Enter the items : ";
+                for (int i = 0; i < num; i++) {
+                    cin >> value;
+                    queue.enqueue(value);
+                }
+            }
             break;
         case 2:
-            q1.dequeue();
-            cout << "An Element has been Dequeued" << endl;
+            if (c == 2) {
+                cout << "Queue Underflow" << endl;
+            }
+            else {
+                cout << "An Element has been Dequeued" << endl;
+                queue.dequeue();
+            }
             break;
-        case 3:
-            cout << "Queue : " << endl;
-            q1.display();
+        case 0 :
             break;
         default:
-            cout << "Invalid option!!\n Try again " << endl;
+            cout << "\nInvalid Option!" << endl;
+            break;
         }
-        cout << "Do you want to continue?(1/0) : ";
+        c = queue.check();
+        queue.display();
+        cout << "\nDo you want to continue?(1/0) : ";
         cin >> ans;
     } while (ans);
+    cout << "Thank You" << endl;
 
     return 0;
 }
