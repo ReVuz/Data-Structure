@@ -56,20 +56,18 @@ node* del(node* head, int pos) {		//directly delete element from given position
 	}
 }
 bool search(node*head,int* item) {		//if element found is true delete the element
-	int count = 1, flag = 0;
+	int count = 1;
 	node* temp = head;
 	//case 1 : head is the item
 	if (head->data == *item) {
 		*item = count;
 		return true;
-		flag = 1;
 	}
 	else {
 		while (temp != NULL) {
 			if (temp->data == *item) {
 				*item = count;
 				return true;
-				flag = 1;
 			}
 			else {
 				temp = temp->next;
@@ -77,22 +75,34 @@ bool search(node*head,int* item) {		//if element found is true delete the elemen
 			}
 		}
 	}
-	if (flag == 0) {
-		return false;
-	}
+	return false;
 }
 void display(node*head) {
 	node* temp=head;
+	node*ptr;
 	cout << "List : ";
 	if (head == NULL) {
 		cout << "List is empty" << endl;
 	}
-	else {
 		while (temp != NULL) {
 			cout << temp->data << " ";
 			temp = temp->next;
+			ptr = temp;
 		}
-	}
+}
+void display_rev(node*head){
+ node* tail = head;
+ 
+    while (tail->next != NULL) {
+        tail = tail->next;
+    }
+ 
+    cout<<"\nReverse List : ";
+    while (tail != head) {
+        cout << tail->data << " ";
+        tail = tail->prev;
+    }
+    cout << tail->data << endl;
 }
 int main() {
 	node* head = NULL;
@@ -142,6 +152,7 @@ int main() {
 			break;
 		}
 		display(head);
+		display_rev(head);
 		cout << "\nDo you want to continue ? (1/0) : ";
 		cin >> ans;
 	} while (ans);
